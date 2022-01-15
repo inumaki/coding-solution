@@ -1,0 +1,24 @@
+
+
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int mp=0,buy= INT_MAX;
+        for(auto e:prices)
+        {
+
+        buy= min(buy,e); // buying day
+            int pp= mp; //previous profit
+            mp= max(mp,e-buy+mp); //max profit
+           if(pp!=mp)
+               buy=e;
+        
+        
+        }
+        
+        return mp;
+        
+        
+    }
+};
