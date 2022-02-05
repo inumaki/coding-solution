@@ -1,0 +1,102 @@
+class Solution {
+public:
+    int pfen[10001];
+    int nfen[10001];
+    
+    void lupdate(int e,int val)
+    {
+        while(e>0)
+        {
+        nfen[e]+=val;
+        e=e-(e&-e);
+        }     
+    }
+    
+    void rupdate(int e,int val)
+    {
+        
+        while(e<=10000)
+        {
+        pfen[e]+=val;
+        e=e+(e&-e);
+        }
+    }
+    int rsum(int index)
+    {
+        int sum=0;
+        while(index>0)
+        {
+
+            sum+=pfen[index];
+            index=index-(index&-index);
+        }
+        return sum;
+        
+    }
+    int lsum(int index)
+    {
+        
+        int sum=0;
+        while(index<=10000)
+        {
+
+            sum+=nfen[index];
+            index=index+ (index&-index);
+        }
+        return sum;
+        
+        
+        
+    }
+    
+    vector<int> countSmaller(vector<int>& nums) {
+        
+        memset(pfen,0,sizeof(pfen));
+        memset(nfen,0,sizeof(nfen));
+    
+    for(auto e:nums)
+    {
+        if(e>0)
+            rupdate(e,1);
+        else if(e<0) 
+                lupdate(-e,1);
+        
+             else
+            pfen[0]+=1;
+    }
+    vector<int>store;
+       
+        for(auto e:nums)
+        {
+            int sum=0; 
+            if(e>0)
+            {
+                sum+=rsum(e-1);
+                sum+=lsum(1);
+                sum+=pfen[0];
+                rupdate(e,-1);
+             
+                
+            }   
+            else if(e<0)
+            {
+                sum+=lsum(-(e-1));
+                lupdate(-e,-1);
+                
+            }  
+             else
+             {    
+              sum+=lsum(1);  
+                 pfen[0]-=1;
+             }
+              
+         
+            store.push_back(sum);
+         
+        }
+      
+    return store;
+    
+    
+    }
+};

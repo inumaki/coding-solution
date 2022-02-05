@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int divsum(vector<int>nums,double div)
+    {
+        int sum=0;
+        for(auto e:nums)
+        {
+            sum+=ceil(e/div);
+        
+            
+        }
+            return sum;
+    }
+    
+    
+    
+    
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        
+        
+        int maxi=INT_MIN;
+        for(auto e:nums)
+            maxi=max(maxi,e);
+        
+        int low=1;
+        int store=0;
+        int high=maxi;
+        while(low<=high)        
+        {
+            int mid= low+(high-low)/2;
+            int sum=divsum(nums,mid);
+           // cout<<mid<<" "<<sum<<endl;
+            if(sum<=threshold)
+            { store=mid;
+                high=mid-1;
+            }
+            else
+                low=mid+1;    
+        }
+        return store;
+    }
+};

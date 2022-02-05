@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        
+        int size=height.size();
+        int maxleft[size];
+        int maxright[size];
+        
+        
+        int el=0;
+        int el2=0;
+        for(int i=0;i<size;i++)
+        {
+        maxleft[i]=el;
+            el=max(el,height[i]);
+        maxright[size-i-1]=el2;
+            el2= max(el2,height[size-i-1]);
+            
+        
+        }
+        int watertrapped=0;
+        
+        for(int i=0;i<size;i++)
+        {
+        int current= min(maxleft[i],maxright[i])-height[i];
+            if(current>=0)
+                watertrapped+=current;
+        
+            
+        }
+        return watertrapped;
+        
+    }
+};
